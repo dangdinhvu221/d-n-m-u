@@ -180,7 +180,7 @@ public class eduSysJFrameQLNV extends javax.swing.JDialog {
         try {
             List<NhanVien> list = this.dao.selectAll();
             for (NhanVien nhanVien : list) {
-                tblModel.addRow(new Object[]{nhanVien.getMaNV(), nhanVien.getMatKhau(),
+                tblModel.addRow(new Object[]{nhanVien.getMaNV(), nhanVien.getMatKhau().replaceAll("\\S", "*"),
                     nhanVien.getHoTen(), nhanVien.isVaiTro() ? "Trưởng phòng" : "Nhân viên"});
             }
             tblModel.fireTableDataChanged();

@@ -17,6 +17,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import com.edusys.utils.mesageDiaLogHelper;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.border.LineBorder;
 
 /**
@@ -91,29 +93,38 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
                 transport.sendMessage(msg, msg.getAllRecipients());
                 transport.close();
                 mesageDiaLogHelper.showMessageDialog(null, "mã đã được gửi đến email", "Thông báo!");
-                btnVerifyCode.setEnabled(true);
-                txtVerify.setEnabled(true);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        btnSend.setEnabled(false);
-                        for (int i = 60; i >= 0; i--) {
-                            txtTime.setText(i + "");
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException ex) {
-                                ex.printStackTrace();
-                            }
-                        }
-                        txtVerify.setEnabled(false);
-                        btnSend.setEnabled(true);
-                    }
-                }).start();
+                setTimeBtn();
             }
         } catch (Exception ex) {
             ex.printStackTrace();
             mesageDiaLogHelper.showErrorDialog(this, "email không hợp lệ", "Error!!");
         }
+    }
+
+    Thread t;
+
+    private void setTimeBtn() {
+        btnVerifyCode.setEnabled(true);
+        txtVerify.setEnabled(true);
+        t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                btnSend.setEnabled(false);
+                for (int i = 59; i >= 0; i--) {
+                    txtTime.setText(i + "");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                        break;
+                    }
+                }
+                txtVerify.setEnabled(false);
+                btnVerifyCode.setEnabled(false);
+                btnSend.setEnabled(true);
+            }
+        });
+        t.start();
     }
 
     public void VerifyCode() {
@@ -123,6 +134,7 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
             mesageDiaLogHelper.showErrorDialog(this, "Mã không đúng. Vui lòng nhập lại", "Error!!");
         } else {
             mesageDiaLogHelper.showMessageDialog(this, "Mã hợp lệ!", "Error!!");
+            this.t.stop();
             btnVerifyCode.setEnabled(false);
             btnResetPass.setEnabled(true);
             txtPass.setEnabled(true);
@@ -194,8 +206,10 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         txtRePass = new javax.swing.JPasswordField();
         btnResetPass = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         btnSend.setBackground(new java.awt.Color(0, 204, 51));
         btnSend.setForeground(new java.awt.Color(255, 0, 0));
@@ -243,7 +257,7 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/66456-mailang-icons-computer-logo-email-gmail.png"))); // NOI18N
         jLabel3.setText(" RESET PASSWORD");
 
-        txtTime.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTime.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtTime.setForeground(new java.awt.Color(255, 0, 0));
         txtTime.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Bell.png"))); // NOI18N
 
@@ -279,6 +293,15 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(255, 0, 0));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setText("X");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -299,26 +322,30 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnResetPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel5)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(176, 176, 176)
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3))
+                    .addComponent(jButton1))
                 .addGap(29, 29, 29)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -400,6 +427,11 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtVerifyKeyReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -446,6 +478,7 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
     private javax.swing.JButton btnResetPass;
     private javax.swing.JButton btnSend;
     private javax.swing.JButton btnVerifyCode;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
