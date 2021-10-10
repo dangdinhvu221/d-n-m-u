@@ -42,11 +42,11 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
     }
 
     public void init() {
+        new eduSysJFramDialogChao(this, true).setVisible(true);
+        JFrameLogIn();
         this.setIconImage(XImages.getAppIcon());
         setLocationRelativeTo(null);
         setResizable(false);
-        new eduSysJFramDialogChao(this, true).setVisible(true);
-        new eduSysJDialogLogIn(this, true).setVisible(true);
 
         new Timer(1000, new ActionListener() {
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
@@ -543,7 +543,10 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
         // TODO add your handling code here:
-        this.JFrameLogIn();
+        this.dispose();
+        new eduSysJDialogLogIn(this, true).setVisible(true);
+//        JOptionPane.showMessageDialog(this, "Đăng xuất thành công!!!");
+        Auth.clear();
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void mniDiemTungKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDiemTungKhoaHocActionPerformed
@@ -563,7 +566,7 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
 
     private void mniDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDangXuatActionPerformed
         // TODO add your handling code here:
-
+        btnDangXuatActionPerformed(evt);
     }//GEN-LAST:event_mniDangXuatActionPerformed
 
     private void btnHuongDanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuongDanActionPerformed

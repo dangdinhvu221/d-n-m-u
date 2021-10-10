@@ -19,9 +19,14 @@ public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
 
     String INSERT_SQL = "INSERT INTO NhanVien (MaNV, HoTen, MatKhau, VaiTro) VALUES (?,?,?,?)";
     String UPDATE_SQL = "UPDATE dbo.NhanVien SET MatKhau = ?, HoTen = ?, VaiTro = ? WHERE MaNV = ?";
+    String UPDATE_MK_SQL = "UPDATE dbo.NhanVien SET MatKhau = ? WHERE MaNV = ?";
     String DELETE_SQL = "DELETE FROM dbo.NhanVien WHERE MaNV=?";
     String SELECT_ALL_SQL = "SELECT * FROM dbo.NhanVien";
     String SELECT_BY_ID = "SELECT * FROM dbo.NhanVien WHERE [MaNV] = ?";
+    
+    public void updateResetPass(NhanVien entity){
+        jdbcHelper.update(UPDATE_MK_SQL, entity.getMatKhau(), entity.getMaNV());
+    }
 
     @Override
     public void insert(NhanVien entity) {

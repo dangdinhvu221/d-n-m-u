@@ -12,8 +12,8 @@ import com.edusys.utils.Validate;
 import com.edusys.utils.XImages;
 import com.edusys.utils.mesageDiaLogHelper;
 import java.awt.Color;
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.border.LineBorder;
 
 /**
@@ -33,10 +33,10 @@ public class eduSysJDialogLogIn extends javax.swing.JDialog {
     NhanVienDAO dao = new NhanVienDAO();
 
     public void init() {
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setIconImage(XImages.getAppIcon());
         setLocationRelativeTo(null);
         setResizable(false);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         txtTenDangNhap.setText("admin");
         txtMatKhau.setText("123");
     }
@@ -44,6 +44,7 @@ public class eduSysJDialogLogIn extends javax.swing.JDialog {
     public void dangNhap() {
         String maNV = txtTenDangNhap.getText();
         String matKhau = new String(txtMatKhau.getPassword());
+
         if (Validate.checkEmty(this, txtTenDangNhap, "Vui lòng điền tài khoản!!!", "Error!!!") == false) {
             return;
         } else if (Validate.checkEmty(this, txtMatKhau, "Vui lòng điền mật khẩu!!!", "Error!!!") == false) {
@@ -60,9 +61,12 @@ public class eduSysJDialogLogIn extends javax.swing.JDialog {
                 txtTenDangNhap.setBorder(new LineBorder(Color.GREEN));
                 txtMatKhau.setBorder(new LineBorder(Color.GREEN));
                 Auth.user = nhanVien;
-                mesageDiaLogHelper.showMessageDialog(this, "Đăng nhập thành công!", "Thông báo!!!");
+                if (!Auth.isManager()) {
+                    mesageDiaLogHelper.showMessageDialog(this, "Đăng nhập với quyền là nhân viên!", "Thông báo!!!");
+                } else {
+                    mesageDiaLogHelper.showMessageDialog(this, "Đăng nhập với quyền là Admin!", "Thông báo!!!");
+                }
                 this.dispose();
-//            new EduSysJFrameHTQLDT().setVisible(true);
             }
         }
 
@@ -93,6 +97,7 @@ public class eduSysJDialogLogIn extends javax.swing.JDialog {
         btnDangNhap = new javax.swing.JButton();
         btnKetThuc = new javax.swing.JButton();
         txtMatKhau = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -130,40 +135,61 @@ public class eduSysJDialogLogIn extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel2.setText("Forgot password?");
+        jLabel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jLabel2MouseMoved(evt);
+            }
+        });
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtMatKhau, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTenDangNhap, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDangNhap)
-                                    .addComponent(lblTenDangNhap)
-                                    .addComponent(lblMatKhau))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(10, 10, 10))))
+                        .addGap(66, 66, 66)
+                        .addComponent(lblDangNhap)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtMatKhau, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTenDangNhap, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblTenDangNhap)
+                                            .addComponent(lblMatKhau))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(98, 98, 98))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                .addComponent(btnKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(lblDangNhap)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblTenDangNhap)
@@ -176,7 +202,13 @@ public class eduSysJDialogLogIn extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(btnKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,9 +219,7 @@ public class eduSysJDialogLogIn extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -204,6 +234,17 @@ public class eduSysJDialogLogIn extends javax.swing.JDialog {
         // TODO add your handling code here:
         ketThuc();
     }//GEN-LAST:event_btnKetThucActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new eduSysJDialogSendEmail(null, true).setVisible(true);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel2MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseMoved
+        // TODO add your handling code here:
+        jLabel2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jLabel2MouseMoved
 
     /**
      * @param args the command line arguments
@@ -251,6 +292,7 @@ public class eduSysJDialogLogIn extends javax.swing.JDialog {
     private javax.swing.JButton btnDangNhap;
     private javax.swing.JButton btnKetThuc;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblDangNhap;
     private javax.swing.JLabel lblMatKhau;

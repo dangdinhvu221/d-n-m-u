@@ -179,4 +179,4 @@ VALUES
     0 -- VaiTro - bit
     )
 
-SELECT*FROM dbo. WHERE MaCD = 
+SELECT*FROM dbo.NhanVien
