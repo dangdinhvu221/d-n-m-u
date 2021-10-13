@@ -61,6 +61,7 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
     public void JFrameLogIn() {
         eduSysJDialogLogIn login = new eduSysJDialogLogIn(this, true);
         login.setVisible(true);
+        check();
     }
 
     public void openHuongDan() {
@@ -69,6 +70,102 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
         } catch (Exception e) {
             mesageDiaLogHelper.showErrorDialog(this, "Không tìm thấy file hướng dẫn !", "Error!!!");
         }
+    }
+
+    public void dangXuat() {
+        this.dispose();
+        new eduSysJDialogLogIn(this, true).setVisible(true);
+//        JOptionPane.showMessageDialog(this, "Đăng xuất thành công!!!");
+        Auth.clear();
+        check();
+        this.setVisible(true);
+    }
+
+    public void check() {
+        if (Auth.isLogin() == false) {
+            btnDangXuat.setEnabled(false);
+            btnChuyenDe.setEnabled(false);
+            btnNguoiDoc.setEnabled(false);
+            btnKhoaHoc.setEnabled(false);
+            btnHocVien.setEnabled(false);
+            mniDangXuat.setEnabled(false);
+            mniDoiMatKhau.setEnabled(false);
+            mniNguoiHoc.setEnabled(false);
+            mniChuyenDe.setEnabled(false);
+            mniKhoaHoc.setEnabled(false);
+            mniHocVien.setEnabled(false);
+            mniQuanLyNhanVien.setEnabled(false);
+            mniNguoiHocTungNam.setEnabled(false);
+            mniBangDiemKhoaHoc.setEnabled(false);
+            mniDiemTungKhoaHoc.setEnabled(false);
+            mniDoanhThu.setEnabled(false);
+        } else {
+            btnDangXuat.setEnabled(true);
+            btnChuyenDe.setEnabled(true);
+            btnNguoiDoc.setEnabled(true);
+            btnKhoaHoc.setEnabled(true);
+            btnHocVien.setEnabled(true);
+            mniDangXuat.setEnabled(true);
+            mniDoiMatKhau.setEnabled(true);
+            mniNguoiHoc.setEnabled(true);
+            mniChuyenDe.setEnabled(true);
+            mniKhoaHoc.setEnabled(true);
+            mniHocVien.setEnabled(true);
+            mniQuanLyNhanVien.setEnabled(true);
+            mniNguoiHocTungNam.setEnabled(true);
+            mniBangDiemKhoaHoc.setEnabled(true);
+            mniDiemTungKhoaHoc.setEnabled(true);
+            mniDoanhThu.setEnabled(true);
+        }
+    }
+
+    public void doanhThu() {
+        if (!Auth.isManager()) {
+            mniDoanhThu.setEnabled(false);
+        } else {
+            openThongKe(3);
+        }
+    }
+
+    public void ketThuc() {
+        int chosse = mesageDiaLogHelper.showComfirmDialog(this, "Bạn có muốn kết thúc hay không?", "Thông báo!!!");
+        if (chosse == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+        return;
+    }
+
+    public void JFrameChuyenDe() {
+        new eduSysJFrameQLCD(this, true).setVisible(true);
+    }
+
+    public void JFrameNguoiHoc() {
+        new eduSysJFrameQLNH(this, true).setVisible(true);
+    }
+
+    public void JFrameKhoaHoc() {
+        new eduSysJFrameQLKH(this, true).setVisible(true);
+    }
+
+    public void JFrameQLNV() {
+        new eduSysJFrameQLNV(this, true).setVisible(true);
+    }
+
+    public void JFrameGioiThieu() {
+        new eduSysJDialogGioiThieu(this, true).setVisible(true);
+    }
+
+    public void JFrameDoiMatKhau() {
+        new eduSysJFrameDMK(this, true).setVisible(true);
+    }
+
+    public void JFrameHocVien() {
+        new eduSysJFrameQLHV(this, true).setVisible(true);
+    }
+
+    public void openThongKe(int index) {
+        eduSysJFrameFormTK frmThongKe = new eduSysJFrameFormTK(index);
+        frmThongKe.setVisible(true);
     }
 
     /**
@@ -450,63 +547,42 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
         JFrameLogIn();
     }//GEN-LAST:event_mniDangNhapActionPerformed
 
-    public void JFrameNguoiHoc() {
-        new eduSysJFrameQLNH(this, true).setVisible(true);
-    }
     private void mniNguoiHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNguoiHocActionPerformed
         // TODO add your handling code here:
         JFrameNguoiHoc();
     }//GEN-LAST:event_mniNguoiHocActionPerformed
-    public void JFrameChuyenDe() {
-        new eduSysJFrameQLCD(this, true).setVisible(true);
-    }
+
     private void mniChuyenDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChuyenDeActionPerformed
         // TODO add your handling code here:
         JFrameChuyenDe();
     }//GEN-LAST:event_mniChuyenDeActionPerformed
-    public void JFrameKhoaHoc() {
-        new eduSysJFrameQLKH(this, true).setVisible(true);
-    }
+
     private void mniKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniKhoaHocActionPerformed
         // TODO add your handling code here:
         JFrameKhoaHoc();
     }//GEN-LAST:event_mniKhoaHocActionPerformed
-    public void JFrameQLNV() {
-        new eduSysJFrameQLNV(this, true).setVisible(true);
-    }
+
     private void mniQuanLyNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhanVienActionPerformed
         // TODO add your handling code here:
         JFrameQLNV();
     }//GEN-LAST:event_mniQuanLyNhanVienActionPerformed
 
-    public void JFrameGioiThieu() {
-        new eduSysJDialogGioiThieu(this, true).setVisible(true);
-    }
     private void mniGioiThieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniGioiThieuActionPerformed
         // TODO add your handling code here:
         JFrameGioiThieu();
     }//GEN-LAST:event_mniGioiThieuActionPerformed
 
-    public void JFrameDoiMatKhau() {
-        new eduSysJFrameDMK(this, true).setVisible(true);
-    }
     private void mniDoiMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDoiMatKhauActionPerformed
         // TODO add your handling code here:
         JFrameDoiMatKhau();
     }//GEN-LAST:event_mniDoiMatKhauActionPerformed
 
-    public void JFrameHocVien() {
-        new eduSysJFrameQLHV(this, true).setVisible(true);
-    }
+
     private void mniHocVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHocVienActionPerformed
         // TODO add your handling code here:
         JFrameHocVien();
     }//GEN-LAST:event_mniHocVienActionPerformed
 
-    public void openThongKe(int index) {
-        eduSysJFrameFormTK frmThongKe = new eduSysJFrameFormTK(index);
-        frmThongKe.setVisible(true);
-    }
     private void mniNguoiHocTungNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNguoiHocTungNamActionPerformed
         // TODO add your handling code here:
         openThongKe(0);
@@ -534,19 +610,12 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
 
     private void btnKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetThucActionPerformed
         // TODO add your handling code here:
-        int chosse = mesageDiaLogHelper.showComfirmDialog(this, "Bạn có muốn kết thúc hay không?", "Thông báo!!!");
-        if (chosse == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-        return;
+        ketThuc();
     }//GEN-LAST:event_btnKetThucActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new eduSysJDialogLogIn(this, true).setVisible(true);
-//        JOptionPane.showMessageDialog(this, "Đăng xuất thành công!!!");
-        Auth.clear();
+        dangXuat();
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void mniDiemTungKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDiemTungKhoaHocActionPerformed
@@ -556,12 +625,7 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
 
     private void mniDoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDoanhThuActionPerformed
         // TODO add your handling code here:
-        if (!Auth.isManager()) {
-            mniDoanhThu.setEnabled(false);
-        } else {
-            openThongKe(3);
-        }
-
+        doanhThu();
     }//GEN-LAST:event_mniDoanhThuActionPerformed
 
     private void mniDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDangXuatActionPerformed
