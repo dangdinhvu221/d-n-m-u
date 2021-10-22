@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 public class jdbcHelper {
     // tham số để kết nối
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName= Vudd_EduSys";
+    static String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName= Polypro";
     static String username = "sa";
     static String password = "songlong";
 

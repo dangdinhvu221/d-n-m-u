@@ -59,9 +59,11 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
     }
 
     public void JFrameLogIn() {
+        this.dispose();
         eduSysJDialogLogIn login = new eduSysJDialogLogIn(this, true);
         login.setVisible(true);
-        check();
+        this.setVisible(true);
+        check(true);
     }
 
     public void openHuongDan() {
@@ -77,46 +79,31 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
         new eduSysJDialogLogIn(this, true).setVisible(true);
 //        JOptionPane.showMessageDialog(this, "Đăng xuất thành công!!!");
         Auth.clear();
-        check();
+        if (Auth.isLogin()) {
+            check(true);
+        }else{
+            check(false);
+        }
         this.setVisible(true);
     }
 
-    public void check() {
-        if (Auth.isLogin() == false) {
-            btnDangXuat.setEnabled(false);
-            btnChuyenDe.setEnabled(false);
-            btnNguoiDoc.setEnabled(false);
-            btnKhoaHoc.setEnabled(false);
-            btnHocVien.setEnabled(false);
-            mniDangXuat.setEnabled(false);
-            mniDoiMatKhau.setEnabled(false);
-            mniNguoiHoc.setEnabled(false);
-            mniChuyenDe.setEnabled(false);
-            mniKhoaHoc.setEnabled(false);
-            mniHocVien.setEnabled(false);
-            mniQuanLyNhanVien.setEnabled(false);
-            mniNguoiHocTungNam.setEnabled(false);
-            mniBangDiemKhoaHoc.setEnabled(false);
-            mniDiemTungKhoaHoc.setEnabled(false);
-            mniDoanhThu.setEnabled(false);
-        } else {
-            btnDangXuat.setEnabled(true);
-            btnChuyenDe.setEnabled(true);
-            btnNguoiDoc.setEnabled(true);
-            btnKhoaHoc.setEnabled(true);
-            btnHocVien.setEnabled(true);
-            mniDangXuat.setEnabled(true);
-            mniDoiMatKhau.setEnabled(true);
-            mniNguoiHoc.setEnabled(true);
-            mniChuyenDe.setEnabled(true);
-            mniKhoaHoc.setEnabled(true);
-            mniHocVien.setEnabled(true);
-            mniQuanLyNhanVien.setEnabled(true);
-            mniNguoiHocTungNam.setEnabled(true);
-            mniBangDiemKhoaHoc.setEnabled(true);
-            mniDiemTungKhoaHoc.setEnabled(true);
-            mniDoanhThu.setEnabled(true);
-        }
+    public void check(boolean check) {
+            btnDangXuat.setEnabled(check);
+            btnChuyenDe.setEnabled(check);
+            btnNguoiDoc.setEnabled(check);
+            btnKhoaHoc.setEnabled(check);
+            btnHocVien.setEnabled(check);
+            mniDangXuat.setEnabled(check);
+            mniDoiMatKhau.setEnabled(check);
+            mniNguoiHoc.setEnabled(check);
+            mniChuyenDe.setEnabled(check);
+            mniKhoaHoc.setEnabled(check);
+            mniHocVien.setEnabled(check);
+            mniQuanLyNhanVien.setEnabled(check);
+            mniNguoiHocTungNam.setEnabled(check);
+            mniBangDiemKhoaHoc.setEnabled(check);
+            mniDiemTungKhoaHoc.setEnabled(check);
+            mniDoanhThu.setEnabled(check);
     }
 
     public void doanhThu() {
