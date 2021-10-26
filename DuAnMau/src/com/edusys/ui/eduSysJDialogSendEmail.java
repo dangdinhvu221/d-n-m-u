@@ -33,8 +33,8 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
         initComponents();
         init();
     }
-    int randomCode;
 
+    int randomCode;
     public void init() {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -51,7 +51,7 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
             if (Validate.checkEmty(this, txtEnterUser, "Vui lòng điền tài khoản!!!", "Error!!") == false) {
                 return;
             } else if (nhanVien == null) {
-                mesageDiaLogHelper.showErrorDialog(this, "Tài khoản không đúng!!!", "Error!!");
+                mesageDiaLogHelper.showErrorDialog(this, "Tài khoản này không tồn tại!!!", "Error!!");
                 txtEnterUser.setBorder(new LineBorder(Color.RED));
                 return;
             } else if (Validate.checkEmty(this, txtEmail, "Vui lòng điền email!!!", "Error!!") == false) {
@@ -140,13 +140,6 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
         }
     }
 
-    public eduSysJDialogSendEmail(String username) {
-        initComponents();
-        init();
-        this.user = username;
-    }
-    public String user;
-
     public void resetPass() {
         if (txtPass.getText().equals(txtRePass.getText())) {
             try {
@@ -165,8 +158,8 @@ public class eduSysJDialogSendEmail extends javax.swing.JDialog {
 
     public NhanVien getForm() {
         NhanVien nv = new NhanVien();
-        nv.setMaNV(user);
         nv.setMatKhau(txtPass.getText());
+        nv.setMaNV(txtEnterUser.getText());
         return nv;
     }
 
