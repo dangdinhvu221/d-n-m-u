@@ -16,13 +16,11 @@ import com.edusys.entity.NhanVien;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
@@ -38,7 +36,7 @@ public class Validate {
             txtField.setBorder(new LineBorder(Color.RED));
             return false;
         }
-        txtField.setBorder(new LineBorder(Color.white));
+        txtField.setBorder(new LineBorder(Color.GREEN));
         return true;
     }
 
@@ -48,7 +46,7 @@ public class Validate {
             pass.setBorder(new LineBorder(Color.RED));
             return false;
         }
-        pass.setBorder(new LineBorder(Color.white));
+        pass.setBorder(new LineBorder(Color.GREEN));
         return true;
     }
 
@@ -58,7 +56,7 @@ public class Validate {
             field.setBorder(new LineBorder(Color.RED));
             return false;
         }
-        field.setBorder(new LineBorder(Color.white));
+        field.setBorder(new LineBorder(Color.GREEN));
         return true;
     }
 
@@ -68,7 +66,7 @@ public class Validate {
             field.setBorder(new LineBorder(Color.RED));
             return false;
         }
-        field.setBorder(new LineBorder(Color.white));
+        field.setBorder(new LineBorder(Color.GREEN));
         return true;
     }
 
@@ -78,7 +76,7 @@ public class Validate {
             lbl.setBorder(new LineBorder(Color.RED));
             return false;
         } else {
-            lbl.setBorder(new LineBorder(Color.white));
+            lbl.setBorder(new LineBorder(Color.GREEN));
             return true;
         }
     }
@@ -92,7 +90,7 @@ public class Validate {
                 field.setBorder(new LineBorder(Color.RED));
                 check = false;
             } else {
-                field.setBorder(new LineBorder(Color.white));
+                field.setBorder(new LineBorder(Color.GREEN));
                 check = true;
             }
         } catch (Exception e) {
@@ -112,7 +110,7 @@ public class Validate {
             field.setBorder(new LineBorder(Color.RED));
             flag = false;
         } else {
-            field.setBorder(new LineBorder(Color.white));
+            field.setBorder(new LineBorder(Color.GREEN));
             flag = true;
         }
         return flag;
@@ -125,7 +123,7 @@ public class Validate {
             String fmatDate = sdf.format(sdf.parse(txtString.getText()));
             if (fmatDate.equals(txtString.getText())) {
                 flag = true;
-                txtString.setBorder(new LineBorder(Color.white));
+                txtString.setBorder(new LineBorder(Color.GREEN));
             } else {
                 mesageDiaLogHelper.showErrorDialog(component, messenger, titel);
                 txtString.setBorder(new LineBorder(Color.RED));
@@ -149,7 +147,7 @@ public class Validate {
             field.setBorder(new LineBorder(Color.RED));
             flag = false;
         } else {
-            field.setBorder(new LineBorder(Color.white));
+            field.setBorder(new LineBorder(Color.GREEN));
             flag = true;
         }
         return flag;
