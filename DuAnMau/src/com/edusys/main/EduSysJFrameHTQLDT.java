@@ -8,13 +8,13 @@ package com.edusys.main;
 import com.edusys.ui.eduSysJDialogGioiThieu;
 import com.edusys.ui.eduSysJDialogLogIn;
 import com.edusys.ui.eduSysJFramDialogChao;
-import com.edusys.ui.eduSysJFrameDMK;
-import com.edusys.ui.eduSysJFrameFormTK;
-import com.edusys.ui.eduSysJFrameQLCD;
-import com.edusys.ui.eduSysJFrameQLHV;
-import com.edusys.ui.eduSysJFrameQLKH;
-import com.edusys.ui.eduSysJFrameQLNH;
-import com.edusys.ui.eduSysJFrameQLNV;
+import com.edusys.ui.eduSysJInternalDMK;
+import com.edusys.ui.eduSysJInternalFormTK;
+import com.edusys.ui.eduSysJInternalQLCD;
+import com.edusys.ui.eduSysJInternalQLHV;
+import com.edusys.ui.eduSysJInternalQLKH;
+import com.edusys.ui.eduSysJInternalQLNH;
+import com.edusys.ui.eduSysJInternalQLNV;
 import com.edusys.utils.Auth;
 import com.edusys.utils.XImages;
 import com.edusys.utils.mesageDiaLogHelper;
@@ -43,10 +43,10 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
 
     public void init() {
         new eduSysJFramDialogChao(this, true).setVisible(true);
-        JFrameLogIn();
+        this.JInternalLogIn();
         this.setIconImage(XImages.getAppIcon());
-        setLocationRelativeTo(null);
-        setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
 
         new Timer(1000, new ActionListener() {
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
@@ -58,7 +58,7 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
         }).start();
     }
 
-    public void JFrameLogIn() {
+    public void JInternalLogIn() {
         this.dispose();
         eduSysJDialogLogIn login = new eduSysJDialogLogIn(this, true);
         login.setVisible(true);
@@ -81,36 +81,36 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
         Auth.clear();
         if (Auth.isLogin()) {
             check(true);
-        }else{
+        } else {
             check(false);
         }
         this.setVisible(true);
     }
 
     public void check(boolean check) {
-            btnDangXuat.setEnabled(check);
-            btnChuyenDe.setEnabled(check);
-            btnNguoiDoc.setEnabled(check);
-            btnKhoaHoc.setEnabled(check);
-            btnHocVien.setEnabled(check);
-            mniDangXuat.setEnabled(check);
-            mniDoiMatKhau.setEnabled(check);
-            mniNguoiHoc.setEnabled(check);
-            mniChuyenDe.setEnabled(check);
-            mniKhoaHoc.setEnabled(check);
-            mniHocVien.setEnabled(check);
-            mniQuanLyNhanVien.setEnabled(check);
-            mniNguoiHocTungNam.setEnabled(check);
-            mniBangDiemKhoaHoc.setEnabled(check);
-            mniDiemTungKhoaHoc.setEnabled(check);
-            mniDoanhThu.setEnabled(check);
+        btnDangXuat.setEnabled(check);
+        btnChuyenDe.setEnabled(check);
+        btnNguoiDoc.setEnabled(check);
+        btnKhoaHoc.setEnabled(check);
+        btnHocVien.setEnabled(check);
+        mniDangXuat.setEnabled(check);
+        mniDoiMatKhau.setEnabled(check);
+        mniNguoiHoc.setEnabled(check);
+        mniChuyenDe.setEnabled(check);
+        mniKhoaHoc.setEnabled(check);
+        mniHocVien.setEnabled(check);
+        mniQuanLyNhanVien.setEnabled(check);
+        mniNguoiHocTungNam.setEnabled(check);
+        mniBangDiemKhoaHoc.setEnabled(check);
+        mniDiemTungKhoaHoc.setEnabled(check);
+        mniDoanhThu.setEnabled(check);
     }
 
     public void doanhThu() {
         if (!Auth.isManager()) {
             mniDoanhThu.setEnabled(false);
         } else {
-            openThongKe(3);
+            JInternalopenThongKe(3);
         }
     }
 
@@ -122,37 +122,38 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
         return;
     }
 
-    public void JFrameChuyenDe() {
-        new eduSysJFrameQLCD(this, true).setVisible(true);
+    public void JInternalChuyenDe() {
+//        new eduSysJFrameQLCD(this, true).setVisible(true);
+        DesktopPane.add(new eduSysJInternalQLCD()).setVisible(true);
+
     }
 
-    public void JFrameNguoiHoc() {
-        new eduSysJFrameQLNH(this, true).setVisible(true);
+    public void JInternalNguoiHoc() {
+        DesktopPane.add(new eduSysJInternalQLNH()).setVisible(true);
     }
 
-    public void JFrameKhoaHoc() {
-        new eduSysJFrameQLKH(this, true).setVisible(true);
+    public void JInternalKhoaHoc() {
+        DesktopPane.add(new eduSysJInternalQLKH()).setVisible(true);
     }
 
-    public void JFrameQLNV() {
-        new eduSysJFrameQLNV(this, true).setVisible(true);
+    public void JInternalQLNV() {
+        DesktopPane.add(new eduSysJInternalQLNV()).setVisible(true);
     }
 
-    public void JFrameGioiThieu() {
+    public void JInternalGioiThieu() {
         new eduSysJDialogGioiThieu(this, true).setVisible(true);
     }
 
-    public void JFrameDoiMatKhau() {
-        new eduSysJFrameDMK(this, true).setVisible(true);
+    public void JInternalDoiMatKhau() {
+        DesktopPane.add(new eduSysJInternalDMK()).setVisible(true);
     }
 
-    public void JFrameHocVien() {
-        new eduSysJFrameQLHV(this, true).setVisible(true);
+    public void JInternalHocVien() {
+        DesktopPane.add(new eduSysJInternalQLHV()).setVisible(true);
     }
 
-    public void openThongKe(int index) {
-        eduSysJFrameFormTK frmThongKe = new eduSysJFrameFormTK(index);
-        frmThongKe.setVisible(true);
+    public void JInternalopenThongKe(int index) {
+        DesktopPane.add(new eduSysJInternalFormTK(index)).setVisible(true);
     }
 
     /**
@@ -175,9 +176,10 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
         btnHocVien = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnHuongDan = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        DesktopPane = new javax.swing.JDesktopPane();
         lblDongHo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuHeThong = new javax.swing.JMenu();
         mniDangNhap = new javax.swing.JMenuItem();
@@ -313,39 +315,58 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
         });
         jToolBar1.add(btnHuongDan);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-
         lblDongHo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblDongHo.setForeground(new java.awt.Color(255, 255, 255));
         lblDongHo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm.png"))); // NOI18N
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Info.png"))); // NOI18N
         jLabel2.setText("Hệ quản lý đào tạo");
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+
+        DesktopPane.setLayer(lblDongHo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DesktopPane.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DesktopPane.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout DesktopPaneLayout = new javax.swing.GroupLayout(DesktopPane);
+        DesktopPane.setLayout(DesktopPaneLayout);
+        DesktopPaneLayout.setHorizontalGroup(
+            DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DesktopPaneLayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        DesktopPaneLayout.setVerticalGroup(
+            DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DesktopPaneLayout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(lblDongHo))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+            .addComponent(DesktopPane)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblDongHo)
-                    .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(DesktopPane))
         );
 
         mnuHeThong.setText("Hệ Thống");
@@ -513,7 +534,7 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -521,7 +542,7 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
 
     private void mniBangDiemKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBangDiemKhoaHocActionPerformed
         // TODO add your handling code here:
-        openThongKe(1);
+        JInternalopenThongKe(1);
     }//GEN-LAST:event_mniBangDiemKhoaHocActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -531,68 +552,68 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
 
     private void mniDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDangNhapActionPerformed
         // TODO add your handling code here:
-        JFrameLogIn();
+        JInternalLogIn();
     }//GEN-LAST:event_mniDangNhapActionPerformed
 
     private void mniNguoiHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNguoiHocActionPerformed
         // TODO add your handling code here:
-        JFrameNguoiHoc();
+        JInternalNguoiHoc();
     }//GEN-LAST:event_mniNguoiHocActionPerformed
 
     private void mniChuyenDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChuyenDeActionPerformed
         // TODO add your handling code here:
-        JFrameChuyenDe();
+        JInternalChuyenDe();
     }//GEN-LAST:event_mniChuyenDeActionPerformed
 
     private void mniKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniKhoaHocActionPerformed
         // TODO add your handling code here:
-        JFrameKhoaHoc();
+        JInternalKhoaHoc();
     }//GEN-LAST:event_mniKhoaHocActionPerformed
 
     private void mniQuanLyNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhanVienActionPerformed
         // TODO add your handling code here:
-        JFrameQLNV();
+        JInternalQLNV();
     }//GEN-LAST:event_mniQuanLyNhanVienActionPerformed
 
     private void mniGioiThieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniGioiThieuActionPerformed
         // TODO add your handling code here:
-        JFrameGioiThieu();
+        JInternalGioiThieu();
     }//GEN-LAST:event_mniGioiThieuActionPerformed
 
     private void mniDoiMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDoiMatKhauActionPerformed
         // TODO add your handling code here:
-        JFrameDoiMatKhau();
+        JInternalDoiMatKhau();
     }//GEN-LAST:event_mniDoiMatKhauActionPerformed
 
 
     private void mniHocVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHocVienActionPerformed
         // TODO add your handling code here:
-        JFrameHocVien();
+        JInternalHocVien();
     }//GEN-LAST:event_mniHocVienActionPerformed
 
     private void mniNguoiHocTungNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNguoiHocTungNamActionPerformed
         // TODO add your handling code here:
-        openThongKe(0);
+        JInternalopenThongKe(0);
     }//GEN-LAST:event_mniNguoiHocTungNamActionPerformed
 
     private void btnHocVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHocVienActionPerformed
         // TODO add your handling code here:
-        JFrameHocVien();
+        JInternalHocVien();
     }//GEN-LAST:event_btnHocVienActionPerformed
 
     private void btnKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhoaHocActionPerformed
         // TODO add your handling code here:
-        JFrameKhoaHoc();
+        JInternalKhoaHoc();
     }//GEN-LAST:event_btnKhoaHocActionPerformed
 
     private void btnNguoiDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNguoiDocActionPerformed
         // TODO add your handling code here:
-        JFrameNguoiHoc();
+        JInternalNguoiHoc();
     }//GEN-LAST:event_btnNguoiDocActionPerformed
 
     private void btnChuyenDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChuyenDeActionPerformed
         // TODO add your handling code here:
-        JFrameChuyenDe();
+        JInternalChuyenDe();
     }//GEN-LAST:event_btnChuyenDeActionPerformed
 
     private void btnKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetThucActionPerformed
@@ -607,7 +628,7 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
 
     private void mniDiemTungKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDiemTungKhoaHocActionPerformed
         // TODO add your handling code here:
-        openThongKe(2);
+        JInternalopenThongKe(2);
     }//GEN-LAST:event_mniDiemTungKhoaHocActionPerformed
 
     private void mniDoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDoanhThuActionPerformed
@@ -665,6 +686,7 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane DesktopPane;
     private javax.swing.JButton btnChuyenDe;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnHocVien;
@@ -672,8 +694,8 @@ public class EduSysJFrameHTQLDT extends javax.swing.JFrame {
     private javax.swing.JButton btnKetThuc;
     private javax.swing.JButton btnKhoaHoc;
     private javax.swing.JButton btnNguoiDoc;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar.Separator jSeparator1;

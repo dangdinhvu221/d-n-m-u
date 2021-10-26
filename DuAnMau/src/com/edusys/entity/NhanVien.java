@@ -11,6 +11,7 @@ import java.io.Serializable;
  *
  * @author dangd
  */
+
 public class NhanVien implements Serializable{
     private String maNV;
     private String hoTen;
@@ -51,6 +52,4 @@ public class NhanVien implements Serializable{
     public void setVaiTro(boolean vaiTro) {
         this.vaiTro = vaiTro;
     }
-    
-    
 }
