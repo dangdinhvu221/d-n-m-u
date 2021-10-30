@@ -12,11 +12,17 @@ import com.edusys.utils.Validate;
 import com.edusys.utils.XImages;
 import com.edusys.utils.mesageDiaLogHelper;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -227,6 +233,70 @@ public class eduSysJInternalQLCD extends javax.swing.JInternalFrame {
         }
     }
 
+    void XuatFileExcel() {
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet("Chuyên Đề");
+
+            XSSFRow row = null;
+            Cell cell = null;
+
+            row = sheet.createRow(3);
+            cell = row.createCell(0, CellType.NUMERIC);
+            cell.setCellValue("STT");
+
+            cell = row.createCell(1, CellType.STRING);
+            cell.setCellValue("Mã CĐ");
+
+            cell = row.createCell(2, CellType.STRING);
+            cell.setCellValue("Tên Chuyên Đề");
+
+            cell = row.createCell(3, CellType.STRING);
+            cell.setCellValue("Học Phí");
+
+            cell = row.createCell(4, CellType.STRING);
+            cell.setCellValue("Thời Lượng");
+
+            cell = row.createCell(5, CellType.STRING);
+            cell.setCellValue("Hình");
+
+            List<ChuyenDe> list = dao.selectAll();
+            if (list != null) {
+                int s = list.size();
+                for (int i = 0; i < s; i++) {
+                    ChuyenDe cd = list.get(i);
+
+                    row = sheet.createRow(4 + i);
+                    cell = row.createCell(0, CellType.NUMERIC);
+                    cell.setCellValue(i + 1);
+
+                    cell = row.createCell(1, CellType.STRING);
+                    cell.setCellValue(cd.getMaCD());
+
+                    cell = row.createCell(2, CellType.STRING);
+                    cell.setCellValue(cd.getTenCD());
+
+                    cell = row.createCell(3, CellType.STRING);
+                    cell.setCellValue(cd.getHocPhi());
+
+                    cell = row.createCell(4, CellType.STRING);
+                    cell.setCellValue(cd.getThoiLuong());
+
+                    cell = row.createCell(5, CellType.STRING);
+                    cell.setCellValue(cd.getHinh());
+                }
+                // save file
+                File file = new File("chuyen_de.xlsx");
+                FileOutputStream fos = new FileOutputStream(file);
+                workbook.write(fos);
+                mesageDiaLogHelper.showMessageDialog(this, "Xuất file excel thành công !!", "Thông báo!");
+                fos.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -263,6 +333,7 @@ public class eduSysJInternalQLCD extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblQLCD = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jLabel4 = new javax.swing.JLabel();
         tabs1 = new javax.swing.JTabbedPane();
@@ -495,21 +566,37 @@ public class eduSysJInternalQLCD extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tblQLCD);
 
+        jButton1.setBackground(new java.awt.Color(0, 255, 0));
+        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Xuất Excel");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         tabs.addTab("DANH SÁCH", jPanel2);
@@ -759,7 +846,7 @@ public class eduSysJInternalQLCD extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+            .addComponent(tabs)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -874,6 +961,11 @@ public class eduSysJInternalQLCD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tblQLCD1MouseClicked
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        XuatFileExcel();
+    }//GEN-LAST:event_jButton1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFirts;
@@ -892,6 +984,7 @@ public class eduSysJInternalQLCD extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnThem1;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoa1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
